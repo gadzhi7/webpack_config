@@ -1,3 +1,3 @@
-module.exports = function welcome(msg) {
+export default function welcome(msg) {
   console.log(`Welcome ${msg}`)
 };
