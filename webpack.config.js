@@ -1,5 +1,7 @@
 'use strict';
 
+// 3.4 информация о сборке
+
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -8,7 +10,8 @@ module.exports = {
   context:  __dirname + '/frontend',
   entry: {
     home: './home.js',
-    about: './about.js'
+    about: './about.js',
+    commons: './commons.js'
   },
   output: {
     path: __dirname + '/public',
