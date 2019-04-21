@@ -5,14 +5,19 @@ const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
+context:  __dirname + '/frontend'
+
+  entry: {
+    home: './home.js',
+    about: './about.js'
+  },
+  output: {
+    path: __dirname + '/public',
+    filename: '[name].js',
+    library: '[name]'
+  },
 
   mode: 'production',
-
-  entry: './home.js',
-  output: {
-    filename: 'build.js',
-    library: 'home'
-  },
 
   watch: NODE_ENV == 'development',
 
