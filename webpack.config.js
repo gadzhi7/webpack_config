@@ -28,6 +28,9 @@ context:  __dirname + '/frontend'
   devtool: NODE_ENV == 'development' ? 'cheap-inline-module-source-map' : null,
 
   plugins: [
+    // плагин когда выдает ошибку не компилирует файлы
+    new webpack.NoErrorsPlugin(),
+    // плагин который ...
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify(NODE_ENV),
       LANG: JSON.stringify('ru')
