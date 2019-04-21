@@ -1,22 +1,20 @@
 'use strict';
 
-// 3.4 информация о сборке
-
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
-  context:  __dirname + '/frontend',
+  context: __dirname + '/frontend',
+
   entry: {
-    home: './home.js',
-    about: './about.js',
-    commons: './commons.js'
+    app: './app'
   },
+
   output: {
     path: __dirname + '/public',
-    filename: '[name].js',
-    library: '[name]'
+    publicPath: '/public/', //url /app.js (Internet path of file)
+    filename: '[name].js'
   },
 
   mode: 'production',
@@ -39,21 +37,30 @@ module.exports = {
     }),
   ],
 
-//оптимизирует код, создает отдельный js файл с общим(одниковым у всех файлов) кодом
+  //оптимизирует код, создает отдельный js файл с общим(одниковым у всех файлов) кодом
   optimization: {
-        runtimeChunk: true,
-        splitChunks: {
-            cacheGroups: {
-                commons: {
-                    chunks: 'initial',
-                    name: 'commons',
-                    test: 'commons',
-                    // enforce: true,
-                    minChunks: 2
-                }
-            }
+    // minimize output files
+    minimize: false,
+    minimizer: [
+      new UglifyJSPlugin({
+        cache: false,
+        sourceMap: true,
+        extractComments: true
+      })
+    ],
+    runtimeChunk: true,
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          chunks: 'initial',
+          name: 'commons',
+          test: 'commons',
+          // enforce: true,
+          minChunks: 2
         }
-    },
+      }
+    }
+  },
 
   // resolve: {
   //   modulesDirectories: ['node_modules'],
@@ -67,22 +74,16 @@ module.exports = {
   // },
 
   module: {
-    rules: [
-      {
-        test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader?optional[]=runtime',
-          options: {
-            presets: ['@babel/preset-env']
-          }
+    rules: [{
+      test: /\.m?js$/,
+      exclude: /(node_modules|bower_components)/,
+      use: {
+        loader: 'babel-loader?optional[]=runtime',
+        options: {
+          presets: ['@babel/preset-env']
         }
       }
-    ]
-  },
-
-  optimization: {
-    minimizer: [new UglifyJsPlugin()],
+    }]
   },
 
 
