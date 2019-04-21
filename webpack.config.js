@@ -5,8 +5,7 @@ const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-context:  __dirname + '/frontend'
-
+  context:  __dirname + '/frontend',
   entry: {
     home: './home.js',
     about: './about.js'
@@ -29,13 +28,29 @@ context:  __dirname + '/frontend'
 
   plugins: [
     // плагин когда выдает ошибку не компилирует файлы
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     // плагин который ...
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify(NODE_ENV),
       LANG: JSON.stringify('ru')
-    })
+    }),
   ],
+
+//оптимизирует код, создает отдельный js файл с общим(одниковым у всех файлов) кодом
+  optimization: {
+        runtimeChunk: true,
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    chunks: 'initial',
+                    name: 'commons',
+                    test: 'commons',
+                    // enforce: true,
+                    minChunks: 2
+                }
+            }
+        }
+    },
 
   // resolve: {
   //   modulesDirectories: ['node_modules'],
