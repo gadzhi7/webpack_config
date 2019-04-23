@@ -4,5 +4,5 @@ module.exports = function() {
     login();
   })
 
-  console.log('log out');
+  console.log('home');
 }
