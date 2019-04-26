@@ -35,6 +35,8 @@ module.exports = {
       NODE_ENV: JSON.stringify(NODE_ENV),
       LANG: JSON.stringify('ru')
     }),
+    // у moment.js много скрытых модулей (языков) и он подгружает всех, а мы фильтруем и подключаем только ru/en
+    new webpack.ContextReplacementPlugin( /moment[/\\]locale$/, /ru|en-gb/)
   ],
 
   //оптимизирует код, создает отдельный js файл с общим(одниковым у всех файлов) кодом
@@ -74,7 +76,8 @@ module.exports = {
   // },
 
   module: {
-    rules: [{
+    rules: [
+      {
       test: /\.m?js$/,
       exclude: /(node_modules|bower_components)/,
       use: {
@@ -83,7 +86,12 @@ module.exports = {
           presets: ['@babel/preset-env']
         }
       }
-    }]
+    },
+    {
+        test: /\.bundle\.js$/,
+        use: 'bundle-loader'
+      }
+  ]
   },
 
 

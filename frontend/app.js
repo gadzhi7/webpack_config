@@ -1,37 +1,47 @@
-document.getElementById('loginbutton').onclick = function() {
-  // connect plugin by click method 1 (require.ensure)
-  require.ensure([], function(require) {
-    let login = require('./login')
-    login();
-  }, 'auth');
+'use strict';
+
+let moment = require('moment');
+
+let today = moment(new Date()).locale('ru');
+
+console.log(today.format('DD MMM YYYY'));
 
 
-  require.ensure([], function(require) {
-    let logout = require('./logout')
-    logout();
-  }, 'auth');
-  // method 2 (AMD)
-  // require(['./login'],function(login) {
-  //   login();
-  // });
-
-};
+// подключение плагина пли клике
+// document.getElementById('loginbutton').onclick = function() {
+//   // connect plugin by click method 1 (require.ensure)
+//   require.ensure([], function(require) {
+//     let login = require('./login')
+//     login();
+//   }, 'auth');
+//
+//
+//   require.ensure([], function(require) {
+//     let logout = require('./logout')
+//     logout();
+//   }, 'auth');
+//   // method 2 (AMD)
+//   // require(['./login'],function(login) {
+//   //   login();
+//   // });
+//
+// };
 
 
 // динамическое подгружение по url
-let moduleName = location.pathname.slice(1);
-let handler
-try {
-  handler = require('bundle!./routes' + moduleName)
-} catch (e) {
-  alert('No such path');
-}
-
-if(handler) {
-  handler(function(route) {
-    route();
-  });
-}
+// let moduleName = location.pathname.slice(1);
+// let handler
+// try {
+//   handler = require('bundle!./routes' + moduleName)
+// } catch (e) {
+//   alert('No such path');
+// }
+//
+// if(handler) {
+//   handler(function(route) {
+//     route();
+//   });
+// }
 
 
 
