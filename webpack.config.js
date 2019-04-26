@@ -16,10 +16,6 @@ module.exports = {
     filename: '[name].js'
   },
 
-  // делает чтобы вместо lodash была такая переменая (проблема бывает когда один и тот же плагин используют и у нас в сборке и в библиотеках подключенные через cdn)
-  // externals: {
-  //   lodash: '_'
-  // },
   mode: 'development',
 
   watch: true,
@@ -59,35 +55,5 @@ module.exports = {
       }
     }
   },
-
-  module: {
-    rules: [{
-        test: /\.m?js$/,
-        include: __dirname + '/frontend',
-        // exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
-      },
-      {
-        test: /old.js$/,
-        // use: "imports-loader?workSettings=>{delay:500}!exports-loader?Work"
-        // exporse делает чтобы экспорт этого модуля попало в глобальную переменную с именем Work
-        use: "expose-loader?Work!imports-loader?workSettings=>{delay:500}!exports-loader?Work"
-      }
-    ],
-    noParse: /angular\/angular.js/
-  },
-
-
-  // no correctly
-  // resolve: {
-  //   alias: {
-  //     vendor: path.resolve(__dirname, '/vendor')
-  //   }
-  // }
 
 };
