@@ -20,6 +20,7 @@ module.exports = {
   // externals: {
   //   lodash: '_'
   // },
+  mode: 'development',
 
   watch: true,
   watchOptions: {
@@ -71,8 +72,21 @@ module.exports = {
           presets: ['@babel/preset-env']
         }
       }
-    }
+    },
+    {
+                test: /old.js$/,
+                use: "imports-loader?workSettings=>{delay:500}!exports-loader?Work"
+            }
   ],
   noParse: /angular\/angular.js/
-}
+},
+
+
+// no correctly
+// resolve: {
+//   alias: {
+//     vendor: path.resolve(__dirname, '/vendor')
+//   }
+// }
+
 };

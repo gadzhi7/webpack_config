@@ -12,4 +12,9 @@
 // через плагин lodash возвращает из массива объектов новый массив состоящий из определенных свойств объектов
 // console.log( _.plunk(users, 'name') );
 
-import angular from 'angular';
+// import angular from 'angular';
+
+// тоже самое что и ниже только imports и exports обрабатывается в webpack.config.js в модулях 
+// let old = require('imports-loader?workSettings=>{delay:500}!exports-loader?Work!../vendor/old/dist/old');
+let old = require('../vendor/old/dist/old');
+old();
