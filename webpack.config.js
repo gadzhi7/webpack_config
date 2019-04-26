@@ -17,9 +17,15 @@ module.exports = {
   },
 
 // делает чтобы вместо lodash была такая переменая (проблема бывает когда один и тот же плагин используют и у нас в сборке и в библиотеках подключенные через cdn)
-  externals: {
-    lodash: '_'
-  },
+  // externals: {
+  //   lodash: '_'
+  // },
+
+  plugins: [
+    new webpack.ProvidePlugin({
+      _: 'lodash'
+    })
+  ],
 
   watch: true,
   watchOptions: {
