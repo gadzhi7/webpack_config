@@ -16,16 +16,10 @@ module.exports = {
     filename: '[name].js'
   },
 
-// делает чтобы вместо lodash была такая переменая (проблема бывает когда один и тот же плагин используют и у нас в сборке и в библиотеках подключенные через cdn)
+  // делает чтобы вместо lodash была такая переменая (проблема бывает когда один и тот же плагин используют и у нас в сборке и в библиотеках подключенные через cdn)
   // externals: {
   //   lodash: '_'
   // },
-
-  plugins: [
-    new webpack.ProvidePlugin({
-      _: 'lodash'
-    })
-  ],
 
   watch: true,
   watchOptions: {
@@ -35,6 +29,9 @@ module.exports = {
   plugins: [
     // плагин когда выдает ошибку не компилирует файлы
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.ProvidePlugin({
+      _: 'lodash'
+    })
   ],
 
   //оптимизирует код, создает отдельный js файл с общим(одниковым у всех файлов) кодом
@@ -63,16 +60,19 @@ module.exports = {
   },
 
   module: {
-    rules: [{
+  rules: [
+    {
       test: /\.m?js$/,
-      exclude: /(node_modules|bower_components)/,
+      include: __dirname + '/frontend',
+      // exclude: /(node_modules|bower_components)/,
       use: {
-        loader: 'babel-loader?optional[]=runtime',
+        loader: 'babel-loader',
         options: {
           presets: ['@babel/preset-env']
         }
       }
-    }]
-  }
-
+    }
+  ],
+  noParse: /angular\/angular.js/
+}
 };
