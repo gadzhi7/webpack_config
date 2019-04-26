@@ -36,7 +36,9 @@ module.exports = {
       LANG: JSON.stringify('ru')
     }),
     // у moment.js много скрытых модулей (языков) и он подгружает всех, а мы фильтруем и подключаем только ru/en
-    new webpack.ContextReplacementPlugin( /moment[/\\]locale$/, /ru|en-gb/)
+    new webpack.ContextReplacementPlugin( /moment[/\\]locale$/, /ru|en-gb/),
+    // для игнорирования опредленных плагинов
+    // new webpack.IgnorePlugin(/zh-/)
   ],
 
   //оптимизирует код, создает отдельный js файл с общим(одниковым у всех файлов) кодом
