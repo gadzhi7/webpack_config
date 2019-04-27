@@ -12,7 +12,7 @@ module.exports = {
 
   output: {
     path: __dirname + '/public',
-    publicPath: '/public/', //url /app.js (Internet path of file)
+    publicPath: '/', //url /app.js (Internet path of file)
     filename: '[name].js'
   },
 
@@ -55,5 +55,23 @@ module.exports = {
       }
     }
   },
+
+  module: {
+
+    rules: [{
+      test: /\.js$/,
+      loader: 'babel-loader'
+    }, {
+      test: /\.jade$/,
+      loader: 'virtual-jade-loader'
+    }, {
+      test: /\.css/,
+      loader: 'style!css'
+    }, {
+      test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
+      loader: 'file?name=[path][name].[ext]'
+    }]
+
+  }
 
 };

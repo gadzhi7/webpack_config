@@ -18,7 +18,10 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "babel-loader": "^8.0.5",
+    "file-loader": "^3.0.1",
+    "style-loader": "^0.23.1",
     "uglifyjs-webpack-plugin": "^2.1.2",
+    "virtual-jade-loader": "^1.0.0",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.0"
   },
