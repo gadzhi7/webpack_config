@@ -1,6 +1,6 @@
 'use strict';
 
-import Menu from './menu';
+import Menu from './menu'
 
 let pandaMenu = new Menu({
   title: 'Menu of panda',
@@ -9,7 +9,7 @@ let pandaMenu = new Menu({
       href: '#eggs'
     }, {
       text: 'meat',
-      hreg: '#meat'
+      href: '#meat'
     }, {
       text: '99% food is bamboo!',
       href: '#bamboo'

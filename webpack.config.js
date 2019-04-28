@@ -62,8 +62,8 @@ module.exports = {
       test: /\.js$/,
       loader: 'babel-loader'
     }, {
-      test: /\.jade$/,
-      loader: 'virtual-jade-loader'
+      test: /\.(pug|jade)$/,
+      loader: 'pug-loader'
     }, {
       test: /\.css/,
       loader: 'style!css'

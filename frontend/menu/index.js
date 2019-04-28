@@ -1,6 +1,6 @@
 // import './style.css'
 
-import template from './menu.jade'
+import template from './menu.pug'
 
 export default class  Menu {
   constructor(options) {
