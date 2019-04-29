@@ -78,7 +78,6 @@ module.exports = {
           chunks: 'all',
           name: 'commons',
           test: 'commons',
-          // enforce: true,
           minChunks: 2
         }
       }
