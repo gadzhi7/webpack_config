@@ -49,12 +49,15 @@ module.exports = {
     // },
     // плагин когда выдает ошибку не компилирует файлы
     new webpack.NoEmitOnErrorsPlugin(),
-    new ExtractTextPlugin(addHash("[name].css", 'hash'), {allChunks: true}),
+    new ExtractTextPlugin(addHash("[name].css", 'hash'), {allChunks: true, disable: process.env.NODE_ENV=='development'}),
     new AssetsPlugin({
       filename: 'assets.json',
       path: __dirname + '/public/assets'
     }),
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin(),
+
+    //если не указан -hot в скрипте
+    // new webpack.HotModuleReplacementPlugin()
   ],
 
   //оптимизирует код, создает отдельный js файл с общим(одниковым у всех файлов) кодом
@@ -104,15 +107,21 @@ module.exports = {
       })
     }, {
       test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
-      loader: addHash('file?name=[path][name].[ext]', 'hash:6')
+      loader: addHash('file?name=[path][name].[ext]?[hash]', 'hash:6')
     }]
   },
 
   devServer: {
     host: 'localhost',
     port: 8080,
+    // для горячей перезагрузки
+    hot: true,
     //откуда отдает файлы
-    contentBase: __dirname + /backend
+    // contentBase: __dirname + /backend
+    proxy: [{
+        path: /.*/,
+        target: 'http://localhost:3000'
+      }]
   }
 
 };
