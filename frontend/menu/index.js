@@ -1,5 +1,4 @@
 // import './style.css'
-import './../style.sass'
 
 import template from './menu.pug'
 
