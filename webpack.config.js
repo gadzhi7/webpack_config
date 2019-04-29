@@ -108,4 +108,11 @@ module.exports = {
     }]
   },
 
+  devServer: {
+    host: 'localhost',
+    port: 8080,
+    //откуда отдает файлы
+    contentBase: __dirname + /backend
+  }
+
 };
