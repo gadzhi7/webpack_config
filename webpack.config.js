@@ -1,8 +1,20 @@
 'use strict';
 
+const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+// при том случает если backend будет заниматься подстановкой url файлой с json файла в html
+const AssetsPlugin = require('assets-webpack-plugin');
+//сам компилирует html, альтернатива приведеному выше
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const rimraf = require('rimraf');
+
+// при продакшене только добавлять hash
+function addHash (template, hash) {
+  return NODE_ENV == 'production' ?
+    template.replace(/\.[^.]+$/, `.[${hash}]$&`) :template
+}
 
 module.exports = {
   context: __dirname + '/frontend',
@@ -16,8 +28,8 @@ module.exports = {
   output: {
     path: __dirname + '/public/assets',
     publicPath: '/assets/', //url /app.js (Internet path of file)
-    filename: '[name].js',
-    chunkFilename: '[id].js',
+    filename: addHash('[name].js', 'chunkhash'),
+    chunkFilename: addHash('[id].js', 'chunkhash'),
     library: '[name]'
   },
 
@@ -32,12 +44,17 @@ module.exports = {
     // собственный плагин автора, берущий текущий путь и удаляет текущую сборку с файлами от старой сборки
     // {
     //   apply: (compiler) => {
-    //     rimraf.sync(compiler.otions.output.path)
+    //     rimraf.sync(compiler.options.output.path)
     //   }
     // },
     // плагин когда выдает ошибку не компилирует файлы
     new webpack.NoEmitOnErrorsPlugin(),
-    new ExtractTextPlugin("styles.css", {allChunks: true})
+    new ExtractTextPlugin(addHash("[name].css", 'hash'), {allChunks: true}),
+    new AssetsPlugin({
+      filename: 'assets.json',
+      path: __dirname + '/public/assets'
+    }),
+    new HtmlWebpackPlugin()
   ],
 
   //оптимизирует код, создает отдельный js файл с общим(одниковым у всех файлов) кодом
@@ -87,7 +104,7 @@ module.exports = {
       })
     }, {
       test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
-      loader: 'file?name=[path][name].[ext]'
+      loader: addHash('file?name=[path][name].[ext]', 'hash:6')
     }]
   },
 
