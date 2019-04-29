@@ -68,6 +68,13 @@ module.exports = {
       test: /\.css/,
       loader: 'style!css'
     }, {
+      test: /\.(scss|sass)$/,
+      use: [
+        "style-loader",
+        "css-loader",
+        "sass-loader"
+      ]
+    }, {
       test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
       loader: 'file?name=[path][name].[ext]'
     }]
