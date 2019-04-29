@@ -1,5 +1,3 @@
-// import './style.css'
-
 import template from './menu.pug'
 
 export default class  Menu {

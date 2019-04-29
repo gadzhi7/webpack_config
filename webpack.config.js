@@ -1,20 +1,24 @@
 'use strict';
 
 const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   context: __dirname + '/frontend',
 
   entry: {
-    app: './app'
+    home: './home',
+    about: './about',
+    common: './common'
   },
 
   output: {
-    path: __dirname + '/public',
-    publicPath: '/', //url /app.js (Internet path of file)
-    filename: '[name].js'
+    path: __dirname + '/public/assets',
+    publicPath: '/assets/', //url /app.js (Internet path of file)
+    filename: '[name].js',
+    chunkFilename: '[id].js',
+    library: '[name]'
   },
 
   mode: 'development',
@@ -25,11 +29,15 @@ module.exports = {
   },
 
   plugins: [
+    // собственный плагин автора, берущий текущий путь и удаляет текущую сборку с файлами от старой сборки
+    // {
+    //   apply: (compiler) => {
+    //     rimraf.sync(compiler.otions.output.path)
+    //   }
+    // },
     // плагин когда выдает ошибку не компилирует файлы
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.ProvidePlugin({
-      _: 'lodash'
-    })
+    new ExtractTextPlugin("styles.css", {allChunks: true})
   ],
 
   //оптимизирует код, создает отдельный js файл с общим(одниковым у всех файлов) кодом
@@ -43,11 +51,11 @@ module.exports = {
         extractComments: true
       })
     ],
-    runtimeChunk: true,
+    runtimeChunk: false,
     splitChunks: {
       cacheGroups: {
         commons: {
-          chunks: 'initial',
+          chunks: 'all',
           name: 'commons',
           test: 'commons',
           // enforce: true,
@@ -82,10 +90,5 @@ module.exports = {
       loader: 'file?name=[path][name].[ext]'
     }]
   },
-
-  // Для вынесения скомпилированного файла стилей в отдельный файл
-  plugins: [
-    new ExtractTextPlugin("styles.css", {allChunks: true}),
-  ]
 
 };
