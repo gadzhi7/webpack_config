@@ -7,10 +7,7 @@
     "build": "webpack --mode production",
     "dev": "webpack --mode development"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gadzhi7/webpack_config.git"
-  },
+  "repository": "git+https://github.com/gadzhi7/webpack_config.git",
   "keywords": [
     "webpack",
     "gkhabada"
@@ -22,18 +19,18 @@
   },
   "homepage": "https://github.com/gadzhi7/webpack_config#readme",
   "devDependencies": {
-    "@babel/core": "^7.4.3",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
     "babel-loader": "^8.0.5",
-    "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "autoprefixer": "^9.5.1",
     "clean-webpack-plugin": "^2.0.1",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.6.0",
-    "postcss-loader": "^3.0.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0",
     "style-loader": "^0.20.3",
+    "uglifyjs-webpack-plugin": "^2.1.2",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.0",
     "webpack-md5-hash": "0.0.6"
